@@ -47,10 +47,4 @@ for part in cfg['formating']:
 
 os.system("sh download.sh")
 
-with open("lfs_bashrc", 'r') as bashrc:
-    data = bashrc.read().format(os.environ['LFS'])
-
-with open("/home/lfs/.bashrc", 'w') as bashrc:
-    bashrc.write(data)
-
 os.system("sh prepCh4.sh")

@@ -22,6 +22,10 @@ case $(uname -m) in
 	x86_64) chown -v lfs $LFS/lib64 ;;
 esac
 
+# Prepare some stuff for part III
+# cp -R build1 /home/lfs/
+# cp build1.sh /home/lfs/
+
 # todo: find a better way of doing this
 cp prepCh4_lfs.sh /home/lfs/prepCh4_lfs.sh
 echo "sh prepCh4_lfs.sh $LFS" > /home/lfs/.bashrc

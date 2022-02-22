@@ -26,3 +26,4 @@ EOF
 source ~/.bash_profile
 
 export MAKEFLAGS="-j$(grep processor /proc/cpuinfo | wc -l)"
+
