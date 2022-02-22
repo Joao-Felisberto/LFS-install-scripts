@@ -1,0 +1,56 @@
+#!/usr/bin/env python3
+
+###
+# CONFIGURATION for LFS 11.0
+###
+# 
+#{
+#	"build-dir": "", // (2.6) Set the LFS variable
+#
+#   // (2.5) creating the file systems
+#	"formating": [
+#			{
+#               "device": "device to mount",
+#				"format": "partition format",
+#				"mount": "mount point"
+#			},
+#			{ "...": "..." }
+#	]
+#}
+#
+###
+
+import os
+import json
+
+with open("config.json", 'r') as config:
+    cfg = json.loads(config.read())
+
+# (2.6) setting the LFS variable
+# TODO: add None checks
+os.environ['LFS'] = cfg['build-dir']
+
+# (2.5 + 2.7) formating and mounting
+# TODO: add None checks and validate input
+for part in cfg['formating']:
+    if part['format'] == "swap":
+        os.system(f"mkswap {part['device']}")
+
+        os.system(f"swapon -v {part['device']}")
+    else:
+        os.system(f"mkfs -vt {part['format']} {part['device']}")
+        mnt_point = os.environ['LFS'] + part['mount']
+        os.system(f"mkdir -vp {mnt_point}")
+        os.system(f"mount -vt {part['format']} {part['device']} {mnt_point}")
+
+# (3.1) packages and patches - introduction
+
+os.system("sh download.sh")
+
+with open("lfs_bashrc", 'r') as bashrc:
+    data = bashrc.read().format(os.environ['LFS'])
+
+with open("/home/lfs/.bashrc", 'w') as bashrc:
+    bashrc.write(data)
+
+os.system("sh prepCh4.sh")

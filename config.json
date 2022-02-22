@@ -1,0 +1,10 @@
+{
+	"build-dir": "/mnt/LFS",
+	"formating": [
+			{
+				"device": "/dev/sda1",
+				"format": "ext4",
+				"mount": "/"
+			}
+	]
+}
